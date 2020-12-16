@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>key sig quiz</title>
+
+  <style>
+    body {
+      background-color: darkgrey;
+    }
+
+    td {
+      border: 1px solid gray;
+      width: 8vw;
+      height: 5vw;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 1.5vw;
+      font-family: sans-serif;
+      /* border-top: 3px solid black; */
+      background-color: white;
+      line-height: 1vw;
+    }
+
+    div td {
+      color: white;
+    }
+
+
+    table {
+      border-left: 10px solid black;
+      /* border-right: 12px solid white; */
+    }
+
+    .markers {
+      border-left: 8px solid darkgrey;
+      /* border-right: 8px solid darkgrey; */
+    }
+
+
+    .markers td {
+      border: 1px solid darkgrey;
+      background-color: darkgrey;
+      font-size: 3vw;
+      height: 3vw;
+    }
+
+    button {
+      background-color: green;
+      color: white;
+      font-size: 4vw;
+    }
+
+    .refresh {
+      background-color: red;
+      ;
+    }
+  </style>
+</head>
+
+<body>
+  <table cellpadding="0" cellSpacing="0" class="markers">
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>•</td>
+      <td></td>
+      <td>•</td>
+      <td></td>
+      <td></td>
+      <td>•</td>
+      <td></td>
+      <td>•<br>•</td>
+    </tr>
+  </table>
+
+  <div></div>
+
+  <table cellpadding="0" cellSpacing="0" class="markers">
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>•</td>
+      <td></td>
+      <td>•</td>
+      <td></td>
+      <td></td>
+      <td>•</td>
+      <td></td>
+      <td>•<br>•</td>
+    </tr>
+  </table>
+
+  <button onclick="pickRando()">RANDOM NOTE</button>
+</body>
+
+<script>
+
+
+  const allFretNotesArr = [
+    ['F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E'], // 1st string
+    ['C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B'], // 2nd string
+    ['G#/Ab', 'A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G'], // 3rd string
+    ['D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D'], // 4th string
+    ['A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A'], // 5th string
+    ['F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E'], // 6th string
+  ]
+
+  const divforTable = document.querySelector('div');
+
+  let fretTable = document.createElement('table');
+  fretTable.cellPadding = '0';
+  fretTable.cellSpacing = '0';
+
+  //iterate over every array(row) within allFretNotesArr
+  for (let row of allFretNotesArr) {
+    //Insert a new row element into the table element
+    fretTable.insertRow();
+    //Iterate over every index(cell) in each array(row)
+    for (let cell of row) {
+      //While iterating over the index(cell)
+      //insert a cell into the table element
+      let newCell = fretTable.rows[fretTable.rows.length - 1].insertCell();
+      //add text to the created cell element
+      newCell.textContent = cell;
+    }
+  }
+  //append the compiled table to the DOM
+  divforTable.appendChild(fretTable);
+
+
+
+
+  function pickRando() {
+    const randoRow = fretTable.rows[Math.floor(Math.random() * fretTable.rows.length)];
+    const randoCellNumber = Math.floor(Math.random() * 12);
+    const randoCellChosen = randoRow.cells[randoCellNumber];
+    randoCellChosen.style.backgroundColor = 'green';
+    randoCellChosen.style.color = 'green';
+    let chosenOne = randoCellChosen.innerText;
+    if (chosenOne == "F#/Gb") {
+      chosenOne = null;
+    }
+    if (chosenOne == "G#/Ab") {
+      chosenOne = "Ab";
+    }
+    if (chosenOne == "A#/Bb") {
+      chosenOne = "Bb";
+    }
+    if (chosenOne == "D#/Eb") {
+      chosenOne = "Eb";
+    }
+    if (chosenOne == "C#/Db") {
+      chosenOne = "Db";
+    }
+
+    // after click, show the key signature of the chosen note! 
+    console.log(`${chosenOne} ${allKeySigs[chosenOne]}`);
+
+    // if you click the cell, it shows answer 
+    randoCellChosen.addEventListener('click', textChange);
+    function textChange() {
+      randoCellChosen.style.color = 'white';
+      randoCellChosen.style.border = '1px solid gray';
+
+      setTimeout(textChangeBack, 1500);
+      function textChangeBack() {
+        randoCellChosen.style.backgroundColor = 'white';
+      }
+    }
+
+
+
+
+  }
+
+
+
+
+
+  // 
+  // 
+  // 
+  // KEY SIG QUIZ
+  // 
+  // 
+  // 
+
+  let allNotes = [
+    "A", // 3 sharps c f g
+    "Bb", // 2 flat e
+    "B", // 5 sharps c d f g a
+    "C", // no sharps or flats
+    "Db", // 5 flats e g a b
+    "D", // 2 sharps f c
+    "Eb", // 3 flats a b
+    "E", // 4 sharps f g c d
+    "F", // 1 flat b
+    "G", // 1 sharp f
+    "Ab" // 4 flats b d e
+  ];
+
+  let allKeySigs = {
+    A: "3 sharps c f g",
+    Bb: "2 flat e",
+    B: "5 sharps c d f g a",
+    C: "no sharps or flats",
+    Db: "5 flats e g a b",
+    D: "2 sharps f c",
+    Eb: "3 flats a b",
+    E: "4 sharps f g c d",
+    F: "1 flat b",
+    G: "1 sharp f",
+    Ab: "4 flats b d e"
+  };
+
+  var randomNote;
+
+  document.addEventListener('keydown', function (event) {
+    // IF SPACEBAR IS PRESSED show a random Note
+    if (event.code == "Space") {
+      randomNote = allNotes[Math.floor(Math.random() * allNotes.length)];
+      console.log(randomNote);
+    }
+    // IF 'M' IS PRESSED show the answer
+    if (event.code == "KeyM") {
+      console.log(allKeySigs[randomNote]);
+    }
+  });
+
+
+</script>
+
+</html>

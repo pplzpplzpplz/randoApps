@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+  let allNotes = [
+    "A", // 3 sharps c f g
+    "Bb", // 2 flat e
+    "B", // 5 sharps c d f g a
+    "C", // no sharps or flats
+    "Db", // 5 flats e g a b
+    "D", // 2 sharps f c
+    "Eb", // 3 flats a b
+    "E", // 4 sharps f g c d
+    "F", // 1 flat b
+    "G", // 1 sharp f
+    "Ab" // 4 flats b d e
+  ];
+
+  let allKeySigs = {
+    A: "3 sharps c f g",
+    Bb: "2 flat e",
+    B: "5 sharps c d f g a",
+    C: "no sharps or flats",
+    Db: "5 flats e g a b",
+    D: "2 sharps f c",
+    Eb: "3 flats a b",
+    E: "4 sharps f g c d",
+    F: "1 flat b",
+    G: "1 sharp f",
+    Ab: "4 flats b d e"
+  };
+
+  var randomNote;
+
+  document.addEventListener('keydown', function (event) {
+    // IF SPACEBAR IS PRESSED show a random Note
+    if (event.code == "Space") {
+      randomNote = allNotes[Math.floor(Math.random() * allNotes.length)];
+      console.log(randomNote);
+    }
+    // IF 'M' IS PRESSED show the answer
+    if (event.code == "KeyM") {
+      console.log(allKeySigs[randomNote]);
+    }
+  });
+
+
+
+
+
+
+  // IF M IS PRESSED
+
+
+</script>
+
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOXIN TIME</title>
+
+  <style>
+    body {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+
+    }
+
+    button {
+      width: 40vw;
+      height: 10vw;
+      background-color: green;
+      color: white;
+      font-size: 50px;
+      font-weight: bold;
+      vertical-align: top;
+      border: none;
+      box-shadow: 2px 2px 2px #999999;
+      align-self: center;
+    }
+
+    .firstWrapper {
+      display: flex;
+      flex-flow: column;
+      padding-bottom: 4vw;
+    }
+
+    .yo {
+      height: 35vw;
+      width: 100vw;
+      color: green;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      font-size: 10vw;
+      font-weight: bold;
+      text-align: center;
+      padding-top: 10vw;
+      border: none;
+    }
+
+    img {
+      width: 70vw;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="firstWrapper">
+    <div class="yo"></div>
+    <button onclick="bothFuncs()">GO</button>
+  </div>
+  <div>
+    <img src="key.png">
+  </div>
+
+  <audio class="bell" src="bell.wav" type="audio/wav" autoplay>
+    <audio class="clappin" src="clappin.wav" type="audio/wav" autoplay>
+      <audio class="bellonce" src="bell_once.wav" type="audio/wav" autoplay>
+
+</body>
+
+<script>
+
+  let button30 = document.body.querySelector('button');
+  let firstDiv = document.body.querySelector('.yo');
+  let bellWav = document.body.querySelector('.bell');
+  let clapWav = document.body.querySelector('.clappin');
+  let bellOnceWav = document.body.querySelector('.bellonce');
+  clapWav.volume = 0.5;
+  bellWav.volume = 0.4;
+  bellOnceWav.volume = 0.1;
+
+  let displayInterval;
+  let count;
+  let count2;
+  let arraytoDom;
+
+  let allRoutines = [
+    ['ROUND 1'], // bell noise
+    ['1'],
+    ['1, 2'],
+    ['1, DUCK, 1, 2'],
+    ['1, 1, 2'],
+    ['1, 2, 1, 2'],
+    ['1, 1, 2, DUCK, 1, 2, 1, 2'],
+    ['[jumping jacks recovery]'],
+    ['ROUND 2'], // bell noise
+    ['3, 4'],
+    ['3, 4, DUCK, 5'],
+    ['3, 4, DUCK, 5, 6'],
+    ['5, 6'],
+    ['5, 6, DUCK, 3'],
+    ['5, 6, DUCK, 3, 4'],
+    ['[jab / crosses recovery]'],
+    ['ROUND 3'], // bell noise
+    ['Knee to Elbow Ext'],
+    ['Bear Shoulder Tap to Push Up'],
+    ['Reverse to Jump Lunge'],
+    ['[lean forward stretch hammies]'],
+    ['ROUND 4'], // bell noise
+    ['Left - Squat'],
+    ['Left - Squat + Curtsy'],
+    ['Left - Squat + Curtsy + Leg Sweep'],
+    ['Right - Squat'],
+    ['Right - Squat + Curtsy'],
+    ['Right - Squat + Curtsy + Leg Sweep'],
+    ['[jumping jacks recovery]'],
+    ['ROUND 5'], // bell noise
+    ['1, 2, 3'],
+    ['1, 2, 3, DUCK, 6, 5'],
+    ['10x Jab Crosses + 4x Jump Lunges'],
+    ['1, 2, 2'],
+    ['1, 1, 2, DUCK, 5, 6'],
+    ['10x Jab Crosses + 4x Jump Lunges'],
+    ['DONE! stretch it out']
+  ]
+
+  count2 = 0;
+  function bothFuncs() {
+    allRoutinesDom();
+    timerGo();
+  }
+
+  function allRoutinesDom() {
+    firstDiv.innerHTML = allRoutines[count2];
+
+    if (count2 === 0 || count2 === 8 || count2 === 16 || count2 === 21 || count2 === 29) {
+      // title cards + clapping (5s)
+      clearInterval(arraytoDom);
+      firstDiv.style.color = 'red';
+      displayInterval = 6000;
+      count = 6;
+      clapWav.play();
+    } else if (count2 === 17 || count2 === 18 || count2 === 19) {
+      // floor work
+      clearInterval(arraytoDom);
+      firstDiv.style.color = 'green';
+      displayInterval = 46000;
+      count = 46;
+      bellOnceWav.play();
+    } else if (count2 === 36) {
+      // at the very end
+      clearInterval(arraytoDom);
+      displayInterval = 46000;
+      count = 46;
+      bellWav.play();
+      alert('you did it!');
+      setTimeout(function () { location.reload(); }, 2000);
+    }
+    else {
+      // typical 30 s timer
+      clearInterval(arraytoDom);
+      firstDiv.style.color = 'green';
+      displayInterval = 31000;
+      count = 31;
+      bellOnceWav.play();
+    };
+    count2++;
+    arraytoDom = setInterval(allRoutinesDom, displayInterval);
+  }
+
+
+  function timerGo() {
+    clearInterval(counter);
+    var counter = setInterval(timer, 1000);
+    function timer() {
+      count = count - 1;
+      if (count % 2) {
+        button30.style.backgroundColor = 'darkgreen';
+      } else { button30.style.backgroundColor = 'green'; }
+      if (count < 0) {
+        count = 30;
+      };
+      button30.innerText = count;
+    }
+  }
+
+</script>
+
+</html>
