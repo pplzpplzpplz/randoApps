@@ -1,0 +1,123 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>grid</title>
+
+  <style>
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+    }
+
+    div {
+      display: flex;
+    }
+
+    div div {
+      height: 16vw;
+      width: 16vw;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="row1">
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+  </div>
+  <div class="row2">
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+  </div>
+  <div class="row3">
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+  </div>
+  <div class="row4">
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+  </div>
+  <div class="row5">
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+  </div>
+  <div class="row6">
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+  </div>
+</body>
+
+<script>
+  const allRows = document.querySelectorAll('[class^="row"]');
+  const allCells = document.querySelectorAll('.cell');
+
+  function backgroundShow(event) {
+    const allTheGayestColors = [
+      'Coral',
+      'Ivory',
+      'Lavender',
+      'LightCyan',
+      'LemonChiffon',
+      'LightSkyBlue',
+      'LightPink',
+      'Orange',
+      'Tomato'
+    ];
+
+    const gMajorScale = [
+      'A',
+      'B',
+      'C',
+      'D',
+      'E',
+      'F♯',
+      'G'
+    ];
+
+    const rndmNumFromColors = Math.floor(Math.random() * allTheGayestColors.length);
+
+    event.target.style.background = allTheGayestColors[rndmNumFromColors];
+    // event.target.style.cursor = "none";
+
+  };
+
+  function backgroundNone(event) {
+    event.target.style.background = "none";
+  }
+
+  allCells.forEach(function (eachThing) {
+    eachThing.addEventListener('mouseenter', backgroundShow);
+    // eachThing.addEventListener('mouseenter', tonePlay);
+    eachThing.addEventListener('mouseleave', backgroundNone);
+  });
+
+</script>
+
+</html>
