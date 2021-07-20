@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>𝕿𝖍𝖊 𝕷𝖔𝖚𝖉𝖊𝖘𝖙 𝕿𝖞𝖕𝖊𝖗</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.26/Tone.js"></script>
+
+  <script>
+
+
+
+
+    // once the entire dom is loaded, do this
+    document.addEventListener("DOMContentLoaded", function (event) {
+
+      var jimDiv = document.querySelector(".bgimg");
+      var distortionAmount;
+      var oversampleAmount;
+      var fdbkamount;
+      var bgPositionY = 0;
+
+      var sliderverb = document.querySelector(".sliderverb");
+      sliderverb.oninput = function () {
+        freeverb.roomSize.value = this.value;
+        console.log(`reverb room size: ${freeverb.roomSize.value}`);
+      }
+
+      var sliderdist = document.querySelector(".sliderdist");
+      sliderdist.oninput = function () {
+        distortionAmount = this.value;
+        console.log(`distortion: ${distortionAmount}`);
+      }
+
+      var sliderfdbk = document.querySelector(".sliderfdbk");
+      sliderfdbk.oninput = function () {
+        fdbkamount = this.value;
+        console.log(`feedback: ${fdbkamount}`);
+      }
+
+
+
+      var freeverb = new Tone.Freeverb().toDestination();
+
+
+
+      // EVERY TIME YOU TYPE ANY KEY 
+      window.addEventListener('keydown', function playsound() {
+
+        // animate jim carrey typing sprite
+        bgPositionY = bgPositionY + 600;
+        jimDiv.style.backgroundPosition = '0px ' + bgPositionY + 'px';
+
+        // NORMAL VERSION
+        var dist = new Tone.Distortion(distortionAmount).connect(freeverb);
+        var feedback = new Tone.FeedbackDelay("16n", fdbkamount).connect(dist);
+
+
+        // REALLY NOISY VERSION - for some reason.. bug?
+        // var dist = new Tone.Distortion({
+        //   distortion: distortionAmount,
+        //   oversample: '2x'
+        // }).toDestination();
+
+
+        const sampler = new Tone.Sampler({
+          urls: {
+            A1: "sounds/ettvox_01.wav",
+            A2: "sounds/ettvox_02.wav",
+            A3: "sounds/ettvox_03.wav",
+            A4: "sounds/ettvox_04.wav",
+            A5: "sounds/ettvox_05.wav",
+            A6: "sounds/ettvox_06.wav",
+            A7: "sounds/ettvox_07.wav",
+            A8: "sounds/ettvox_08.wav",
+          },
+          baseUrl: "",
+          onload: () => {
+            var allKeys = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8"];
+            randomKey = allKeys[Math.floor(Math.random() * allKeys.length)];
+
+            sampler.triggerAttackRelease([randomKey], 0.5);
+          }
+        }).connect(freeverb).connect(dist).connect(feedback);
+      });
+    });
+
+  </script>
+
+  <h1>𝕿𝖍𝖊 𝕷𝖔𝖚𝖉𝖊𝖘𝖙 𝕿𝖞𝖕𝖊𝖗</h1>
+  <div class="controls">
+    <p>REVERB</p>
+    <input type="range" min=".7" max="1" value="0" step=".01" oninput="update(this.value)" class="sliderverb">
+    <p>DISTORTION</p>
+    <input type="range" min="0.4" max="999" value="0" step=".01" oninput="update(this.value)" class="sliderdist">
+    <p>FEEDBACK</p>
+    <input type="range" min="0" max=".9" value="0" step=".01" oninput="update(this.value)" class="sliderfdbk">
+  </div>
+
+  <div class="bgimg">
+  </div>
+
+
+
+
+
+
+
+</body>
+
+</html>

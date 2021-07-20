@@ -1,0 +1,49 @@
+html {
+  font-size: 10px;
+}
+
+body {
+  transition: background-image 1s;
+}
+
+.bgimg {
+    margin: 0 auto;
+    background: url('./jim.png') bottom center;
+    width: 500px;
+    height: 300px;
+}
+
+body,html {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+h1 {
+  font-size: 5rem;
+  letter-spacing: -.25rem;
+  text-align: center;
+  color: white;
+  background-color: crimson;
+  height: 100%;
+  padding: 20px;
+  margin: 0;
+}
+
+.controls {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  padding: 3em;
+}
+
+form {
+  display: flex;
+  align-items: center;
+}
+
+.controls p + input {
+  margin: 0 20px;
+}
+
+
